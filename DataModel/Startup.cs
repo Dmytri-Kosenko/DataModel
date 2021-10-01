@@ -1,3 +1,4 @@
+using DataModel.Models.DataProviders.SqlServer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -10,6 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace DataModel
 {
@@ -25,12 +27,12 @@ namespace DataModel
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "DataModel", Version = "v1" });
             });
+            services.AddDbContext<InfoContext>(x => x.UseSqlServer());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
